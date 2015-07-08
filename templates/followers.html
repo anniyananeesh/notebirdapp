@@ -1,0 +1,30 @@
+<ion-view view-title="Followers">
+  <ion-content>
+
+  	<div class="sumup-info">
+
+	  	<div class="sum-info-data pull-left">
+	  		<span class="title">Followers</span>
+	  		<span class="data">1,379</span>
+	 	</div>
+
+	 	<div class="pull-right">
+	 		<button class="button button-holo-ring">Send Notification</button>
+	 	</div>
+
+	 	<div class="clearfix"></div>
+
+  	</div>
+    <ion-list>
+      <ion-item ng-repeat="follow in followers" class="followers">
+      	<h2>{{follow.tag}}</h2>
+        <h4>{{follow.email}}</h4>
+        <p>{{follow.phone}}</p>
+        <div class="sm-buttons">
+        	<button class="resend-button"></button>
+        	<button class="delete-button"></button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

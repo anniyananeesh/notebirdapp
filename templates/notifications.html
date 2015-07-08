@@ -1,0 +1,27 @@
+<ion-view view-title="Notifications">
+  <ion-content>
+
+  	<div class="sumup-info">
+
+	  	<div class="sum-info-data pull-left">
+	  		<span class="title">Notifications</span>
+	  		<span class="data">1,379</span>
+	 	</div>
+
+	 	<div class="pull-right">
+	 		<button class="button button-holo-ring">Send Notification</button>
+	 	</div>
+
+	 	<div class="clearfix"></div>
+
+  	</div>
+
+    <ion-list>
+      <ion-item class="item item-text-wrapper notifications-item" ng-repeat="note in notifications" href="#/app/notifications/{{note._id}}">
+      	<div class="not-letter">{{note.letter}}</div>
+        <h2>{{note.title}}</h2>
+        <p>{{note.message}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,18 @@
+<ion-content scroll="false">
+
+  <div class="login-logo"></div>
+  <form ng-submit="doLogin()">
+    <div class="login-form">
+      
+      <div class="jelly-form">
+        <input type="text" ng-model="loginData.username" placeholder="Username">
+      </div>
+      
+      <div class="jelly-form">
+        <input type="password" ng-model="loginData.password" placeholder="Password">
+      </div>
+      <div class="clearfix"></div>
+      <button class="button button-block button-primary" type="submit">Sign me in</button>
+    </div>
+  </form>
+</ion-content>

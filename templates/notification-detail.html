@@ -1,0 +1,19 @@
+<ion-view view-title="Notification Detail">
+<ion-content class="has-header">
+<div class="list list-inset">
+  <label class="item item-input">
+    <input type="text" placeholder="Title" ng-model="notify.name">
+  </label>
+  <label class="item item-input">
+    <input type="text" placeholder="Message" ng-model="notify.content">
+  </label>
+</div>
+ 
+</ion-content>
+
+<ion-footer-bar class="bar-positive">
+  <div class="buttons">
+    <button class="button button-block button-positive" ng-click="sendNotification()">SEND</button>
+  </div>
+</ion-footer-bar>
+</ion-view>

@@ -1,0 +1,40 @@
+<ion-view view-title="Dashboard">
+
+	<ion-content scroll="false">
+		<div class="welcome-text">Welcome back</div>
+		<div class="profile-image-rounded">
+
+		</div>
+
+		<div class="title">
+			Al Hikma Medical Center
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="statistics">
+
+			<div class="sts-ui-item">
+				<span class="title">Notes</span>
+				<span class="data">{{notifications_count | number:0}}</span>
+			</div>
+
+			<div class="sts-ui-item">
+				<span class="title">Followers</span>
+				<span class="data">{{followers_count | number:0}}</span>
+			</div>
+
+			<div class="sts-ui-item">
+				<span class="title">Status</span>
+				<span class="data">PRO</span>
+			</div>
+
+		</div>
+ 
+	</ion-content>
+
+	<ion-footer-bar>
+		<button class="button button-primary button-block-footer button-txt-lg" ng-click="goToSendNotification()">Send Notification</button>
+ 
+	</ion-footer-bar>
+</ion-view>
