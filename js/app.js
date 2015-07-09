@@ -26,13 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  //Splash Page
-  .state('splash',{
-    url:'/splash',
-    templateUrl:'templates/splash.html',
-    controller:'AppCtrl'
-  })
-
+  //TODO Splash Page
   //Login Page
   .state('login', {
     url: "/",
@@ -40,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'AppCtrl'
   })
  
-  //Layout Page
+  
   .state('app', {
     url: "/app",
     abstract: true,
@@ -97,7 +91,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  //Settings Page
+  //TODO Settings Page
   .state('app.settings', {
     url: "/settings",
     views: {
@@ -118,8 +112,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   });
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
-  
 });

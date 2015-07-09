@@ -4,38 +4,42 @@
 
 
 		  <!-- Pets Tab -->
-		  <ion-tab title="Dashboard" icon="icon ion-home">
-		    <ion-view title="Settings">
+		  <ion-tab icon="icon ion-home">
+		    <ion-view title="Account Settings">
 		    <ion-content>
-		    <h1>Take picture</h1>
-			<button class="take-picture" ng-click="takeSnap()">
-				Snap
-			</button>
+		    <div class="profile-image-rounded"></div>
+ 			<div class="clearfix"></div>
+			<div class="text-center">
+		 		<button class="button button-holo-ring button-lr-padded-lg font-lg" ng-click="takeSnap()">Take Picture</button>
+		 	</div>
+		 	</ion-content>
 			</ion-view>
-			</ion-content>
+			
 		  </ion-tab>
 
 
 		  <!-- Adopt Tab -->
-		  <ion-tab title="Friends" icon="icon ion-heart">
-		  <ion-view title="Settings">
-		  <ion-content>
-		    <h1>Edit profile information</h1>
-			<div class="list list-inset">
-			  <label class="item item-input">
-			    <input type="text" placeholder="Title" ng-model="settings.title">
-			  </label>
-			  <button class="take-picture" ng-click="takeSnap()">
-				Update title
-			  </button>
-			</div>
-			</ion-content>
+		  <ion-tab icon="icon ion-heart">
+		    <ion-view title="Account Settings">
+		    <ion-content>
+		    <div class="profile-image-rounded"></div>
+ 			<div class="clearfix"></div>
+ 			<div class="login-form updateAccount">
+		      <div class="jelly-form">
+		        <input type="text" ng-model="notify.title" placeholder="Title">
+		      </div>
+ 		    </div>
+		   	<div class="clearfix"></div>
+			<div class="text-center">
+		 		<button class="button button-holo-ring button-lr-padded-lg font-lg" ng-click="updateAccount()">Update Account</button>
+		 	</div>
+		 	</ion-content>
 			</ion-view>
 		  </ion-tab>
 
 
 		  <!-- About Tab -->
-		  <ion-tab title="Account" icon="icon ion-gear-b">
+		  <ion-tab icon="icon ion-gear-b">
 		  <ion-view title="Settings">
 		  <ion-content>
 		    <h1>Change password</h1>

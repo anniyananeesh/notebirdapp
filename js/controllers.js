@@ -131,14 +131,14 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('SettingsCtrl',['$scope', '$state', '$ionicLoading', function($scope,$state,$ionicLoading){
+.controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
   $scope.takeSnap = function (e) {
     
     var options = {
-      quality: 45,
-      targetWidth: 1000,
-      targetHeight: 1000,
+      quality: 100,
+      targetWidth: 640,
+      targetHeight: 640,
       destinationType: Camera.DestinationType.FILE_URI,
       encodingType: Camera.EncodingType.JPEG,
       sourceType: Camera.PictureSourceType.CAMERA
@@ -177,6 +177,12 @@ angular.module('starter.controllers', [])
         function (e) {
           alert("Upload failed");
         }, options);
-  }
+  };
+
+  var rtUsr = Auth.getUser();
+  
+  Data.get('user?ref='+rtUsr.ref).then(function(result){
+    console.log(result);
+  });
 
 }]);

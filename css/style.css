@@ -347,3 +347,37 @@ button{
 	color: #000;
 	font-family: 'montserrat';
 }
+
+.tab-item-active{
+	background: #43bf9e;
+}
+
+.tabs{
+	background: #4ad4af;
+	border: none;
+}
+
+.tab-item .icon{
+	padding-top: 8px;
+	color: #fff;
+}
+
+.bar.bar-stable{
+	border: none;
+}
+.text-center{
+	text-align: center;
+}
+.button-lr-padded-lg{
+	padding-right: 30px;
+	padding-left: 30px;
+}
+.font-lg{
+	font-size: 20px;
+}
+.updateAccount{
+	width:220px;
+}
+.updateAccount .jelly-form{
+	margin-bottom: 20px;
+}
