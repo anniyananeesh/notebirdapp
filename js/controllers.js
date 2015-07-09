@@ -1,3 +1,5 @@
+var serverURL = 'http://localhost:3000';
+
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl',['$scope', '$state', 'Auth', 'Data', '$ionicLoading', function($scope, $state, Auth, Data, $ionicLoading) {

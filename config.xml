@@ -103,37 +103,23 @@
 	<access origin="mobile.360seha.com" subdomains="true" />
 	
 	<!-- Plugins information -->
-	<gap:plugin name="org.apache.cordova.device" version="0.3.0"
-		source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="org.apache.cordova.media" version="0.2.16"
-		source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="com.pushbots.push" version="1.2.4"
-		source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="org.apache.cordova.network-information"
-		version="0.2.15" source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="com.romainstrock.cordova.background-geolocation"
-		version="0.3.9" source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="nl.x-services.plugins.toast" version="2.0.4"
-		source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="org.apache.cordova.vibration" version="0.3.13"
-		source="plugins.cordova.io">
-	</gap:plugin>
-	<gap:plugin name="org.apache.cordova.statusbar"/>
-	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" version="4.3.18"/>
+	<!-- Core plugins -->
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.media-capture" />
+    <gap:plugin name="org.apache.cordova.console" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.device-motion" />
+    <gap:plugin name="org.apache.cordova.device-orientation" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.vibration" />
 	
 	<!-- Preferences -->
-	<feature name="StatusBar">
-		<param name="ios-package" value="CDVStatusBar" onload="true" />
-	</feature>
-	<preference name="StatusBarOverlaysWebView" value="false"/> 
-	<preference name="StatusBarBackgroundColor" value="#000000"/>
-	<preference name="StatusBarStyle" value="lightcontent"/>
     
     <!-- Icons and splashes -->
     <icon height="60" gap:platform="ios" width="60" src="res/icon/ios/Icon-60.png"/>
