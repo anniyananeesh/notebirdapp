@@ -24,6 +24,7 @@ angular.module('starter.services', ['ngCookies'])
 .factory("Data", ['$http',
     function ($http) {
         var serviceBase = 'http://192.168.56.1:3000/'; //45.33.67.32 production
+        
         var obj = {};
         obj.get = function (q) {
             return $http.get(serviceBase + q).then(function (results) {

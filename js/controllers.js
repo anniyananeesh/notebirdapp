@@ -160,7 +160,7 @@ angular.module('starter.controllers', [])
   };
 
   // Upload image to server
-  $scope.upload = function (imageURI) {
+  function upload(imageURI) {
     var ft = new FileTransfer(),
         options = new FileUploadOptions();
 
