@@ -135,6 +135,11 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
+
+  //Get the user authenticated
+  var rtUsr = Auth.getUser(),
+      userid = rtUsr.ref;
+
   $scope.takeSnap = function (e) {
     
     var options = {
@@ -148,11 +153,13 @@ angular.module('starter.controllers', [])
 
     navigator.camera.getPicture(
       function (imageURI) {
-        console.log(imageURI);
-        upload(imageURI);
+        
+        //Upload the iamge to web server
+        upload(imageURI,userid);
     },
     function (message) {
       // We typically get here because the use canceled the photo operation. Fail silently.
+      alert(message);
     }, options);
 
     return false;
@@ -160,7 +167,8 @@ angular.module('starter.controllers', [])
   };
 
   // Upload image to server
-  function upload(imageURI) {
+  function upload(imageURI,userid) {
+
     var ft = new FileTransfer(),
         options = new FileUploadOptions();
 
@@ -169,16 +177,22 @@ angular.module('starter.controllers', [])
     options.mimeType = "image/jpeg";
     options.chunkedMode = false;
     options.params = { // Whatever you populate options.params with, will be available in req.body at the server-side.
-      "description": "Uploaded from my phone"
+      "description": "Uploaded from my phone",
+      "ref" : userid
     };
 
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
+
+          alert(JSON.stringify(e));
+          //OnSuccess Move file to local storage
+          movePic(imageURI);
           
         },
         function (e) {
-          alert("Upload failed");
+          alert("Upload failed" + e);
         }, options);
+
   };
 
   var rtUsr = Auth.getUser();
@@ -186,5 +200,42 @@ angular.module('starter.controllers', [])
   Data.get('user?ref='+rtUsr.ref).then(function(result){
     console.log(result);
   });
+
+  function movePic(file){ 
+    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
+  } 
+
+  //Callback function when the file system uri has been resolved
+  function resolveOnSuccess(entry){ 
+
+      var d = new Date();
+      var n = d.getTime();
+      //new file name
+      var newFileName = n + ".jpg";
+      var myFolderApp = "NoteBird";
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
+
+      //The folder is created if doesn't exist
+      fileSys.root.getDirectory( myFolderApp,
+        {create:true, exclusive: false},
+        function(directory) {
+            entry.moveTo(directory, newFileName,  successMove, resOnError);
+        },
+        resOnError);
+      },
+      resOnError);
+
+  }
+
+  //Callback function when the file has been moved successfully - inserting the complete path
+  function successMove(entry) {
+    //I do my insert with "entry.fullPath" as for the path
+    $scope.profileImage = entry.fullPath;
+  }
+
+  function resOnError(error) {
+    alert(error.code);
+  }
 
 }]);
