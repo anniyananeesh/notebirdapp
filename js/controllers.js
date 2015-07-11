@@ -135,6 +135,7 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
+  $scope.profileImage = '';
 
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
@@ -183,10 +184,15 @@ angular.module('starter.controllers', [])
 
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
-
-          alert(JSON.stringify(e));
-          //OnSuccess Move file to local storage
-          movePic(imageURI);
+          
+          if(!e.error)
+          {
+            //OnSuccess Move file to local storage
+            movePic(imageURI);
+          }else{
+            //On failed show the error message
+            alert(e.message);
+          }
           
         },
         function (e) {
@@ -206,13 +212,15 @@ angular.module('starter.controllers', [])
   } 
 
   //Callback function when the file system uri has been resolved
-  function resolveOnSuccess(entry){ 
+  function resolveOnSuccess(entry){
+
+      alert(entry);
 
       var d = new Date();
       var n = d.getTime();
       //new file name
       var newFileName = n + ".jpg";
-      var myFolderApp = "NoteBird";
+      var myFolderApp = "NoteBird/Profile";
 
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
 
