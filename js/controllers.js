@@ -190,10 +190,11 @@ function upload(imageURI,userid) {
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
           
+          alert(IsJsonString(e));
           alert(JSON.stringify(e));
           alert(e.response.error+'res');
           alert(e.error+'w/o res');
-          
+
           if(!e.response.error)
           {
             alert('True block');
@@ -245,4 +246,13 @@ function successMove(entry) {
 
 function resOnError(error) {
     alert(error.code);
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
