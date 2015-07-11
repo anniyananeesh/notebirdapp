@@ -190,8 +190,7 @@ function upload(imageURI,userid,scope) {
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
  
-          var resObj = JSON.parse(e.response);
-          movePic(imageURI,resObj.fileName);
+          var resObj = JSON.parse(e.response); 
 
           var myFolderApp = "NoteBird/Profile";
 
