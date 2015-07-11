@@ -194,9 +194,11 @@ function upload(imageURI,userid) {
 
           if(!e.error)
           {
+            alert('True block');
             alert(JSON.stringify(e.response));
+            alert(JSON.stringify(e.response.image));
             //OnSuccess Move file to local storage
-            movePic(imageURI,e.image);
+            movePic(imageURI,e.response.image);
 
           }else{
             alert('Error block');
