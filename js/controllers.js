@@ -191,14 +191,19 @@ function upload(imageURI,userid) {
         function (e) {
           
           alert(JSON.stringify(e));
-
+          alert(e.response.error+'res');
+          alert(e.error+'w/o res');
+          
           if(!e.response.error)
           {
             alert('True block');
             alert(JSON.stringify(e.response));
-            alert(e.response.image);
+
+            alert(e.response.image+' res');
+            alert(e.image+' w/o res');
+
             //OnSuccess Move file to local storage
-            movePic(imageURI,e.response.image);
+            movePic(imageURI,e.image);
 
           }else{
             alert('Error block');
