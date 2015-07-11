@@ -191,7 +191,11 @@ function upload(imageURI,userid) {
         function (e) {
           
           alert(IsJsonString(e));
-          
+
+          for(var propertyName in e) {
+            alert(propertyName);
+          }
+
           alert(e);
           alert(JSON.stringify(e));
           alert(e.response.error+'res');
