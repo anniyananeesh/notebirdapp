@@ -157,18 +157,23 @@ angular.module('starter.controllers', [])
         
         //Upload the iamge to web server
         upload(imageURI,userid);
-    },
-    function (message) {
-      // We typically get here because the use canceled the photo operation. Fail silently.
-      alert(message);
-    }, options);
+
+      }, resOnError, options);
 
     return false;
 
   };
 
-  // Upload image to server
-  function upload(imageURI,userid) {
+  var rtUsr = Auth.getUser();
+  
+  Data.get('user?ref='+rtUsr.ref).then(function(result){
+    console.log(result);
+  });
+
+}]);
+
+// Upload image to server
+function upload(imageURI,userid) {
 
     var ft = new FileTransfer(),
         options = new FileUploadOptions();
@@ -185,65 +190,49 @@ angular.module('starter.controllers', [])
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
           
+          alert(JSON.stringify(e));
+          
           if(!e.error)
           {
             //OnSuccess Move file to local storage
-            movePic(imageURI);
+            movePic(imageURI,e.image);
+
           }else{
             //On failed show the error message
             alert(e.message);
           }
           
-        },
-        function (e) {
-          alert("Upload failed" + e);
-        }, options);
+        }, resOnError, options);
 
-  };
+};
 
-  var rtUsr = Auth.getUser();
-  
-  Data.get('user?ref='+rtUsr.ref).then(function(result){
-    console.log(result);
-  });
 
-  function movePic(file){ 
-    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
-  } 
+function movePic(file,imageName){ 
 
-  //Callback function when the file system uri has been resolved
-  function resolveOnSuccess(entry){
+    var myFolderApp = "NoteBird/Profile";
 
-      alert(JSON.stringify(entry));
-
-      var d = new Date();
-      var n = d.getTime();
-      //new file name
-      var newFileName = n + ".jpg";
-      var myFolderApp = "NoteBird/Profile";
+    window.resolveLocalFileSystemURI(file, function(entry){
 
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
 
-      //The folder is created if doesn't exist
-      fileSys.root.getDirectory( myFolderApp,
-        {create:true, exclusive: false},
-        function(directory) {
-            entry.moveTo(directory, newFileName,  successMove, resOnError);
-        },
-        resOnError);
-      },
-      resOnError);
+        //The folder is created if doesn't exist
+        fileSys.root.getDirectory( myFolderApp,
+          {create:true, exclusive: false},
+          function(directory) {
+                entry.moveTo(directory, imageName,  successMove, resOnError);
+          }, resOnError);
 
-  }
+      }, resOnError);
 
-  //Callback function when the file has been moved successfully - inserting the complete path
-  function successMove(entry) {
+    }, resOnError); 
+}  
+
+//Callback function when the file has been moved successfully - inserting the complete path
+function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
     $scope.profileImage = entry.fullPath;
-  }
+}
 
-  function resOnError(error) {
+function resOnError(error) {
     alert(error.code);
-  }
-
-}]);
+}
