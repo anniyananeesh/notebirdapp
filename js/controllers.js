@@ -191,7 +191,6 @@ function upload(imageURI,userid) {
         function (e) {
  
           var resObj = JSON.parse(e.response);
-          alert(JSON.stringify(resObj));
           movePic(imageURI,resObj.fileName);
           
         }, resOnError, options);
@@ -200,7 +199,7 @@ function upload(imageURI,userid) {
 
 
 function movePic(file,imageName){ 
-    alert(imageName);
+ 
     var myFolderApp = "NoteBird/Profile";
 
     window.resolveLocalFileSystemURI(file, function(entry){
@@ -222,6 +221,8 @@ function movePic(file,imageName){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
+
+    alert(entry.fullPath);
     $scope.profileImage = entry.fullPath;
 }
 
