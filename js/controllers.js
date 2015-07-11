@@ -156,7 +156,7 @@ angular.module('starter.controllers', [])
       function (imageURI) {
         
         //Upload the iamge to web server
-        upload(imageURI,userid);
+        upload(imageURI,userid,$scope);
 
       }, resOnError, options);
 
@@ -173,7 +173,7 @@ angular.module('starter.controllers', [])
 }]);
 
 // Upload image to server
-function upload(imageURI,userid) {
+function upload(imageURI,userid,scope) {
 
     var ft = new FileTransfer(),
         options = new FileUploadOptions();
@@ -192,49 +192,37 @@ function upload(imageURI,userid) {
  
           var resObj = JSON.parse(e.response);
           movePic(imageURI,resObj.fileName);
+
+          var myFolderApp = "NoteBird/Profile";
+
+          window.resolveLocalFileSystemURI(imageURI, function(entry){
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
+
+              //The folder is created if doesn't exist
+              fileSys.root.getDirectory( myFolderApp,
+                {create:true, exclusive: false},
+                function(directory) {
+                      entry.moveTo(directory, resObj.fileName,  function(entry) {
+                        //I do my insert with "entry.fullPath" as for the path
+
+                        scope.profileImage = 'file:///storage/emulated/0'entry.fullPath;
+                        
+                    }, resOnError);
+
+                }, resOnError);
+
+            }, resOnError);
+
+          }, resOnError); 
           
         }, resOnError, options);
 
-};
-
-
-function movePic(file,imageName){ 
- 
-    var myFolderApp = "NoteBird/Profile";
-
-    window.resolveLocalFileSystemURI(file, function(entry){
-
-      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
-
-        //The folder is created if doesn't exist
-        fileSys.root.getDirectory( myFolderApp,
-          {create:true, exclusive: false},
-          function(directory) {
-                entry.moveTo(directory, imageName,  successMove, resOnError);
-          }, resOnError);
-
-      }, resOnError);
-
-    }, resOnError); 
-}  
+}; 
 
 //Callback function when the file has been moved successfully - inserting the complete path
-function successMove(entry) {
-    //I do my insert with "entry.fullPath" as for the path
 
-    alert(entry.fullPath);
-    $scope.profileImage = entry.fullPath;
-}
 
 function resOnError(error) {
     alert(error.code);
-}
-
-function IsJsonString(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
 }
