@@ -191,6 +191,8 @@ function upload(imageURI,userid) {
         function (e) {
           
           alert(IsJsonString(e));
+          
+          alert(e);
           alert(JSON.stringify(e));
           alert(e.response.error+'res');
           alert(e.error+'w/o res');
