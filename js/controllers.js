@@ -214,7 +214,7 @@ angular.module('starter.controllers', [])
   //Callback function when the file system uri has been resolved
   function resolveOnSuccess(entry){
 
-      alert(entry);
+      alert(JSON.stringify(entry));
 
       var d = new Date();
       var n = d.getTime();
