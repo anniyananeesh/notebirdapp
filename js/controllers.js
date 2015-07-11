@@ -189,24 +189,12 @@ function upload(imageURI,userid) {
 
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
-          
-          var resObj = jQuery.parseJSON(e);
-          alert(resObj);
-          alert(resObj.response);
-          alert(resObj.response.error);
-
-          if(!e.response.error)
-          { 
-
-            //OnSuccess Move file to local storage
-            movePic(imageURI,e.image);
-
-          }else{
-            alert('Error block');
-            alert(JSON.stringify(e.response));
-            //On failed show the error message
-            alert(e.message);
-          }
+ 
+          alert(e);
+          alert(IsJsonString(e));
+          alert(e.response);
+          alert(e.responseCode);
+          imovePic(imageURI,e.image);
           
         }, resOnError, options);
 
