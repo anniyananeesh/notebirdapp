@@ -191,10 +191,7 @@ function upload(imageURI,userid) {
         function (e) {
  
           var resObj = JSON.parse(e.response);
-          alert(resObj);
-          alert(resObj.ref);
-          
-          imovePic(imageURI,e.image);
+          imovePic(imageURI,resObj.image);
           
         }, resOnError, options);
 
