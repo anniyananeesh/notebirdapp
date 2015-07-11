@@ -190,10 +190,10 @@ function upload(imageURI,userid) {
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
  
-          alert(e);
-          alert(IsJsonString(e));
-          alert(e.response);
-          alert(e.responseCode);
+          var resObj = JSON.parse(e.response);
+          alert(resObj);
+          alert(resObj.ref);
+          
           imovePic(imageURI,e.image);
           
         }, resOnError, options);
