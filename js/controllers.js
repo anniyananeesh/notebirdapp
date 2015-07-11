@@ -191,7 +191,8 @@ function upload(imageURI,userid) {
         function (e) {
  
           var resObj = JSON.parse(e.response);
-          imovePic(imageURI,resObj.image);
+          alert(JSON.stringify(resObj));
+          imovePic(imageURI,resObj.fileName);
           
         }, resOnError, options);
 
@@ -199,7 +200,7 @@ function upload(imageURI,userid) {
 
 
 function movePic(file,imageName){ 
-
+    alert(imageName);
     var myFolderApp = "NoteBird/Profile";
 
     window.resolveLocalFileSystemURI(file, function(entry){
