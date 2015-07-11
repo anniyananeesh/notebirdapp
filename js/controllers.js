@@ -190,14 +190,17 @@ function upload(imageURI,userid) {
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
           
-          alert(JSON.stringify(e));
-          
+          alert(JSON.stringify(response));
+
           if(!e.error)
           {
+            alert(JSON.stringify(response));
             //OnSuccess Move file to local storage
             movePic(imageURI,e.image);
 
           }else{
+            alert('Error block');
+            alert(JSON.stringify(response));
             //On failed show the error message
             alert(e.message);
           }
