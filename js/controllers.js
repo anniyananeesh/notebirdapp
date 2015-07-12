@@ -136,6 +136,7 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
   $scope.profileImage = '';
+  var profileImgDiv = $("#profileImgDiv");
 
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
@@ -143,6 +144,8 @@ angular.module('starter.controllers', [])
 
   $scope.takeSnap = function (e) {
     
+    profileImgDiv.html('loading...');
+
     var options = {
       quality: 100,
       targetWidth: 640,
@@ -154,9 +157,11 @@ angular.module('starter.controllers', [])
 
     navigator.camera.getPicture(
       function (imageURI) {
-        
+
+        profileImgDiv.html('<img src="'+imageURI+'"/>');
+
         //Upload the iamge to web server
-        upload(imageURI,userid,$scope);
+        upload(imageURI,userid);
 
       }, resOnError, options);
 
@@ -173,7 +178,7 @@ angular.module('starter.controllers', [])
 }]);
 
 // Upload image to server
-function upload(imageURI,userid,scope) {
+function upload(imageURI,userid) {
 
     var ft = new FileTransfer(),
         options = new FileUploadOptions();
@@ -190,38 +195,40 @@ function upload(imageURI,userid,scope) {
     ft.upload(imageURI, serverURL + "/image",
         function (e) {
  
-          var resObj = JSON.parse(e.response); 
-
-          var myFolderApp = "NoteBird/Profile";
-
-          window.resolveLocalFileSystemURI(imageURI, function(entry){
-
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
-
-              //The folder is created if doesn't exist
-              fileSys.root.getDirectory( myFolderApp,
-                {create:true, exclusive: false},
-                function(directory) {
-                      entry.moveTo(directory, resObj.fileName,  function(entry) {
-                        //I do my insert with "entry.fullPath" as for the path
-
-                        scope.profileImage = 'file:///storage/emulated/0'entry.fullPath;
-                        
-                    }, resOnError);
-
-                }, resOnError);
-
-            }, resOnError);
-
-          }, resOnError); 
+          var resObj = JSON.parse(e.response);
+          movePic(imageURI,resObj.fileName);
           
         }, resOnError, options);
 
-}; 
+};
+
+
+function movePic(file,imageName){ 
+ 
+    var myFolderApp = "NoteBird/Profile";
+
+    window.resolveLocalFileSystemURI(file, function(entry){
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys){      
+
+        //The folder is created if doesn't exist
+        fileSys.root.getDirectory( myFolderApp,
+          {create:true, exclusive: false},
+          function(directory) {
+                entry.moveTo(directory, imageName,  successMove, resOnError);
+          }, resOnError);
+
+      }, resOnError);
+
+    }, resOnError); 
+}  
 
 //Callback function when the file has been moved successfully - inserting the complete path
-
+function successMove(entry) {
+    //I do my insert with "entry.fullPath" as for the path
+    alert(entry.fullPath;)
+}
 
 function resOnError(error) {
     alert(error.code);
-}
+} 

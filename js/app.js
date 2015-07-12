@@ -7,20 +7,29 @@
 
 var serverURL = "http://localhost:3000";
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.config'])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+  
+  $ionicPlatform.on("deviceready", function(){
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
+    if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
+    if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    //PushNotificationsService.register();
   });
+
+  $ionicPlatform.on("resume", function(){
+    //PushNotificationsService.register();
+  });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
