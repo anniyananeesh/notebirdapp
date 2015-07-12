@@ -136,7 +136,6 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
   $scope.profileImage = '';
-  var profileImgDiv = $("#profileImgDiv");
 
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
@@ -148,8 +147,8 @@ angular.module('starter.controllers', [])
 
     var options = {
       quality: 100,
-      targetWidth: 640,
-      targetHeight: 640,
+      targetWidth: 140,
+      targetHeight: 140,
       destinationType: Camera.DestinationType.FILE_URI,
       encodingType: Camera.EncodingType.JPEG,
       sourceType: Camera.PictureSourceType.CAMERA
@@ -159,7 +158,9 @@ angular.module('starter.controllers', [])
 
       function (imageURI) {
 
-        profileImgDiv.html('<img src="'+imageURI+'"/>');
+          var smallImage = document.getElementById('cameraPic');
+          smallImage.src= "data:image/jpeg;base64,"+imageURI;;
+          smallImage.style.display = 'block'; 
 
         //Upload the iamge to web server
         upload(imageURI,userid);
