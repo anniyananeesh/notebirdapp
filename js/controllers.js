@@ -156,6 +156,7 @@ angular.module('starter.controllers', [])
     };
 
     navigator.camera.getPicture(
+
       function (imageURI) {
 
         profileImgDiv.html('<img src="'+imageURI+'"/>');
@@ -226,7 +227,7 @@ function movePic(file,imageName){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    alert(entry.fullPath;)
+    alert(entry.fullPath);
 }
 
 function resOnError(error) {
