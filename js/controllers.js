@@ -143,12 +143,12 @@ angular.module('starter.controllers', [])
 
   $scope.takeSnap = function (e) {
     
-    profileImgDiv.html('loading...');
+    $('.loader').show();
 
     var options = {
       quality: 100,
-      targetWidth: 140,
-      targetHeight: 140,
+      targetWidth: 190,
+      targetHeight: 190,
       destinationType: Camera.DestinationType.FILE_URI,
       encodingType: Camera.EncodingType.JPEG,
       sourceType: Camera.PictureSourceType.CAMERA
@@ -157,11 +157,7 @@ angular.module('starter.controllers', [])
     navigator.camera.getPicture(
 
       function (imageURI) {
-
-          var smallImage = document.getElementById('cameraPic');
-          smallImage.src= "data:image/jpeg;base64,"+imageURI;;
-          smallImage.style.display = 'block'; 
-
+ 
         //Upload the iamge to web server
         upload(imageURI,userid);
 
@@ -228,7 +224,12 @@ function movePic(file,imageName){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    alert(entry.fullPath);
+    $('.loader').hide();
+    
+    var smallImage = document.getElementById('cameraPic');
+        smallImage.src= "file:///storage/emulated/0"+entry.fullPath;;
+        smallImage.style.display = 'block';
+
 }
 
 function resOnError(error) {

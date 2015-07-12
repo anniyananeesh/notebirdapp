@@ -381,3 +381,7 @@ button{
 .updateAccount .jelly-form{
 	margin-bottom: 20px;
 }
+
+.loader{
+	display: none;
+}
