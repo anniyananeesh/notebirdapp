@@ -32,7 +32,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    
+    $ionicConfigProvider.tabs.position('bottom');
+
   $stateProvider
 
   //TODO Splash Page

@@ -358,7 +358,7 @@ button{
 }
 
 .tabs{
-	background: #4ad4af;
+	background: #4ad4af !important;
 	border: none;
 }
 

@@ -136,16 +136,17 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
   $scope.picData = '';
+  $scope.accountTitle = 'first';
 
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
       userid = rtUsr.ref;
 
   $scope.uploadPic = function () {
-    alert("asdas");
+ 
     var options =   {
       quality: 50,
-      destinationType: Camera.DestinationType.FILE_URI, //DATA_URL
+      destinationType: Camera.DestinationType.DATA_URL, //DATA_URL
       sourceType: 0,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
       encodingType: 0     // 0=JPG 1=PNG
     }
@@ -159,20 +160,15 @@ angular.module('starter.controllers', [])
   var rtUsr = Auth.getUser();
   
   Data.get('user?ref='+rtUsr.ref).then(function(result){
-    console.log(result);
+      if(!result.error)
+      {
+        $scope.accountTitle = result.name;
+      }
   });
 
-  var onSuccess = function(FILE_URI) {
-      
-      alert("Success");
-
-      if (FILE_URI.substring(0,21)=="content://com.android") {
-        photo_split = FILE_URI.split("%3A");
-        FILE_URI="content://media/external/images/media/"+photo_split[1];
-      }
-
-        console.log(FILE_URI);
-        $scope.picData = FILE_URI;
+  var onSuccess = function(imageData) {
+ 
+        $scope.picData = "data:image/jpeg;base64," + imageData;
         $scope.$apply();
         
         var myImg = $scope.picData,
@@ -204,6 +200,68 @@ angular.module('starter.controllers', [])
   var onUploadFail = function(err)
   {
     console.log(err);
+  };
+
+
+  //Update account title
+  $scope.updateAccount = function()
+  {
+     var params = {
+        title = $scope.accountTitle,
+        ref = rtUsr.ref
+     };
+
+     //Send a query to update the accoutn title of the user
+     Data.post('user',params).then(function(result){
+        if(!result.error)
+        {
+          $ionicLoading.show({template:'Updated account title', duration: 1500});
+        }else{
+          $ionicLoading.show({template: result.message, duration: 1500});
+        }
+     });
+  };
+
+
+  //Password change settings
+  $scope.settings = {
+    current_pass: '',
+    newpwd: '',
+    cpwd: ''
+  }
+
+  $scope.updatePassword = function()
+  {
+      var params = {
+         cpass: $scope.settings.current_pass,
+         pwd: $scope.settings.newpwd,
+         cpwd: $scope.settings.cpwd,
+         ref: rtUsr.ref
+      }
+
+      Data.post('change_password', params).then(function*(result){
+
+        if(result.error && result.message == "invalid_current_pass")
+        {
+          $ionicLoading.show({template: 'Current password is invalid', duration: 1500});
+        }
+
+        if(result.error && result.message == "passwords_not_matching")
+        {
+          $ionicLoading.show({template: 'Your passwords not matching', duration: 1500});
+        }
+
+        if(!result.error && result.message == "success")
+        {
+          $ionicLoading.show({template:'Successfully updated password'});
+        }
+
+        if(result.error && result.message == "error_unknown")
+        {
+          $ionicLoading.show({template: 'Unknown error occurred', duration: 1500});
+        }
+
+      });
   };
 
 }]);
