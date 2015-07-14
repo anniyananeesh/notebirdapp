@@ -239,7 +239,7 @@ angular.module('starter.controllers', [])
          ref: rtUsr.ref
       }
 
-      Data.post('change_password', params).then(function*(result){
+      Data.post('change_password', params).then(function(result){
 
         if(result.error && result.message == "invalid_current_pass")
         {
