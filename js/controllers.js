@@ -207,8 +207,8 @@ angular.module('starter.controllers', [])
   $scope.updateAccount = function()
   {
      var params = {
-        title = $scope.accountTitle,
-        ref = rtUsr.ref
+        title : $scope.accountTitle,
+        ref : rtUsr.ref
      };
 
      //Send a query to update the accoutn title of the user
