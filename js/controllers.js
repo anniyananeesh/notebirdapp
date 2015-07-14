@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl',['$scope', '$state', '$ionicLoading','Auth','Data', function($scope,$state,$ionicLoading,Auth,Data){
 
-  $scope.profileImage = '';
+  $scope.picData = '';
 
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
@@ -193,7 +193,7 @@ angular.module('starter.controllers', [])
   var onUploadSuccess = function(e)
   {
     var resObj = JSON.parse(e.response);
-    console.log(e);
+    $scope.picData = serverURL+ '/profileImage?img='+resObj.fileName;
   }
 
   var onUploadFail = function(err)
