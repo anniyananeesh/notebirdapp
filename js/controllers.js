@@ -142,7 +142,7 @@ angular.module('starter.controllers', [])
       userid = rtUsr.ref;
 
   $scope.uploadPic = function () {
-    
+    alert("asdas");
     var options =   {
       quality: 50,
       destinationType: Camera.DestinationType.FILE_URI, //DATA_URL
