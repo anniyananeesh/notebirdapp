@@ -51,5 +51,4 @@ angular.module('starter.services', ['ngCookies'])
 
     }
 
-  }; 
 })

@@ -9,7 +9,7 @@ var serverURL = "http://localhost:3000";
 
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.config','ngCordova'])
 
-.run(function($ionicPlatform, PushNotificationsService) {
+.run(function($ionicPlatform) {
   
   $ionicPlatform.on("deviceready", function(){
     
@@ -22,12 +22,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       StatusBar.styleDefault();
     }
 
-    PushNotificationsService.register();
+    //PushNotificationsService.register();
 
   });
 
   $ionicPlatform.on("resume", function(){
-     PushNotificationsService.register();
+     //PushNotificationsService.register();
   });
 
 
