@@ -78,4 +78,27 @@ angular.module('starter.services', ['ngCookies'])
   
   return obj;
  
-}]);
+}])
+
+// PUSH NOTIFICATIONS
+.service('PushNotificationsService', function (GCM_SENDER_ID, PUSHBOTS_APP_ID){
+    
+    this.register = function(tagName){
+
+        if(PushbotsPlugin.isiOS()){
+          PushbotsPlugin.initializeiOS(PUSHBOTS_APP_ID);
+        }
+        if(PushbotsPlugin.isAndroid()){
+          PushbotsPlugin.initializeAndroid(PUSHBOTS_APP_ID, GCM_SENDER_ID);
+        }
+
+        PushbotsPlugin.getToken(function(token){
+          console.log(token);
+        });
+
+        //Set the tag name for the subscriber
+        PushbotsPlugin.tag(tagName);
+
+    };
+
+});

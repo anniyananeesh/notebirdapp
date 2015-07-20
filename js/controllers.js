@@ -2,7 +2,7 @@ var serverURL = 'http://192.168.56.1:3000';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl',['$scope', '$state', 'Auth', 'Data', '$ionicLoading', function($scope, $state, Auth, Data, $ionicLoading) {
+.controller('AppCtrl',['$scope', '$state', 'Auth', 'Data', '$ionicLoading', 'PushNotificationsService', function($scope, $state, Auth, Data, $ionicLoading, PushNotificationsService) {
   // Form data for the login modal
   $scope.loginData = {};  
 
@@ -29,10 +29,17 @@ angular.module('starter.controllers', [])
           username: $scope.loginData.username,
           ref: result._tkn,
           pro: result.pro,
-          limit: result.limit
+          limit: result.limit,
+          tag: result.tagName,
+          code: result.code
         });
 
+        //Register on push service
+        PushNotificationsService.register(result.tagName);
+
         $state.go("app.dashboard");
+
+
       }else{
         $ionicLoading.show({template:result.message, duration: 1000});
       }
