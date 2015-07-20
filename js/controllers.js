@@ -253,7 +253,7 @@ angular.module('starter.controllers', [])
 
         if(!result.error && result.message == "success")
         {
-          $ionicLoading.show({template:'Successfully updated password'});
+          $ionicLoading.show({template:'Successfully updated password',duration: 1500});
         }
 
         if(result.error && result.message == "error_unknown")

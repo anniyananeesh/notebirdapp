@@ -101,6 +101,7 @@
 	
 	<!-- CORS Access -->
 	<access origin="mobile.360seha.com" subdomains="true" />
+	<access origin="*.pushbots.com" />
 	
 	<!-- Plugins information -->
 	<!-- Core plugins -->
@@ -118,6 +119,7 @@
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="com.pushbots.push" version="1.2.3" source="plugins.cordova.io" />
 	
 	<!-- Preferences -->
     
