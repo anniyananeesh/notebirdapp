@@ -3,27 +3,34 @@ angular.module('starter.services', ['ngCookies'])
 .factory('NodePushServer', function ($http){
   // Configure push notifications server address
   // 		- If you are running a local push notifications server you can test this by setting the local IP (on mac run: ipconfig getifaddr en1)
+ 
   var push_server_address = "http://192.168.1.102:8000";
+ 
 
   return {
     // Stores the device token in a db using node-pushserver
     // type:  Platform type (ios, android etc)
-    storeDeviceToken: function(type, regId) {
+ 
+    storeDeviceToken: function(userId, type, regId) {
+
       // Create a random userid to store with it
-      var user = {
-        user: 'user' + Math.floor((Math.random() * 10000000) + 1),
+      var user = { 
+        user: userId,
         type: type,
         token: regId
       };
+
       console.log("Post token for registered device with data " + JSON.stringify(user));
 
-      $http.post(push_server_address+'/subscribe', JSON.stringify(user))
+      $http.post(push_server_address+'/device', JSON.stringify(user))
+ 
       .success(function (data, status) {
         console.log("Token stored, device is successfully subscribed to receive push notifications.");
       })
       .error(function (data, status) {
         console.log("Error storing device token." + data + " " + status);
       });
+ 
     },
     // CURRENTLY NOT USED!
     // Removes the device token from the db via node-pushserver API unsubscribe (running locally in this case).
@@ -40,5 +47,9 @@ angular.module('starter.services', ['ngCookies'])
         console.log("Error removing device token." + data + " " + status);
       });
     }
-  };
+  }; 
+
+    }
+
+  }; 
 })

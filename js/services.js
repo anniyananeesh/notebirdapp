@@ -77,4 +77,23 @@ angular.module('starter.services', ['ngCookies'])
   }
   
   return obj;
-}]);
+ 
+}])
+
+// PUSH NOTIFICATIONS
+.service('PushNotificationsService', function ($rootScope, NodePushServer, GCM_SENDER_ID, PUSHBOTS_APP_ID, Auth){
+    this.register = function(){
+        
+        var rtUsr = Auth.getUser();
+
+        if(ionic.Platform.isAndroid())
+        {
+            PushbotsPlugin.initializeAndroid(PUSHBOTS_APP_ID, GCM_SENDER_ID);
+
+            PushbotsPlugin.getToken(function(token){
+                NodePushServer.storeDeviceToken(rtUsr.ref, "android", token);
+            });
+        } 
+
+    };
+});

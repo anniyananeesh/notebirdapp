@@ -119,7 +119,9 @@
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+ 
     <gap:plugin name="com.pushbots.push" version="1.2.4" source="plugins.cordova.io" />
+ 
 	
 	<!-- Preferences -->
     
