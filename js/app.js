@@ -22,36 +22,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       StatusBar.styleDefault();
     }
 
-    if(PushbotsPlugin.isiOS()){
-      PushbotsPlugin.initializeiOS("55ad33491779595a5e8b4568");
-    }
-    
-    if(PushbotsPlugin.isAndroid()){
-                    
-      PushbotsPlugin.initializeAndroid("55ad33491779595a5e8b4568", "1044922486820");
-      PushbotsPlugin.getToken(function(token){
-        console.log(token);
-      });
-      
-    }
-
     //PushNotificationsService.register();
 
   });
 
   $ionicPlatform.on("resume", function(){
-     if(PushbotsPlugin.isiOS()){
-      PushbotsPlugin.initializeiOS("55ad33491779595a5e8b4568");
-    }
-    
-    if(PushbotsPlugin.isAndroid()){
-                    
-      PushbotsPlugin.initializeAndroid("55ad33491779595a5e8b4568", "1044922486820");
-      PushbotsPlugin.getToken(function(token){
-        console.log(token);
-      });
-      
-    }
+     //PushNotificationsService.register();
   });
 
 
