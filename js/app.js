@@ -7,7 +7,7 @@
 
 var serverURL = "http://localhost:3000";
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.factories','starter.config','ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.config','ngCordova'])
 
 .run(function($ionicPlatform, PushNotificationsService) {
   
