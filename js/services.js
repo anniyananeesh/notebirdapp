@@ -97,9 +97,10 @@ angular.module('starter.services', ['ngCookies'])
           });
 
           PushbotsPlugin.debug(true);
+          alert(tagName);
           //Set the tag name for the subscriber
-          PushbotsPlugin.tag(tagName);
-        
+          PushbotsPlugin.setAlias(tagName);
+
         }
 
 
