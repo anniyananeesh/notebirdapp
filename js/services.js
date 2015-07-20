@@ -91,15 +91,11 @@ angular.module('starter.services', ['ngCookies'])
         }
         if(PushbotsPlugin.isAndroid()){
           PushbotsPlugin.initializeAndroid(PUSHBOTS_APP_ID, GCM_SENDER_ID);
-
-          PushbotsPlugin.getToken(function(token){
-            console.log(token);
-          });
-
-          PushbotsPlugin.debug(true);
           alert(tagName);
-          //Set the tag name for the subscriber
-          PushbotsPlugin.setAlias(tagName);
+            //Set the tag name for the subscriber
+            PushbotsPlugin.setAlias(tagName);
+
+
 
         }
 
