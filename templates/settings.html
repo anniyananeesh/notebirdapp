@@ -1,19 +1,19 @@
 
 	<ion-tabs class="tabs-icon-top">
 
-
+			{{user}}
 		  <!-- Pets Tab -->
 		  <ion-tab icon="icon ion-home">
 		    <ion-view title="Account Settings">
-		    <ion-content>
-		    <div class="profile-image-rounded">
-		    	<img ng-src="http://192.168.56.1:3000/profileImage?img={{user.image}}" ng-if="user.image != null"/>
-		    </div>
- 			<div class="clearfix"></div>
-			<div class="text-center">
-		 		<button class="button button-holo-ring button-lr-padded-lg font-lg" ng-click="uploadPic()">Take Picture</button>
-		 	</div>
-		 	</ion-content>
+			    <ion-content>
+			    <div class="profile-image-rounded">
+			    	<img ng-src="http://192.168.56.1:3000/profileImage?img={{user.image}}" ng-if="user.image != null"/>
+			    </div>
+	 			<div class="clearfix"></div>
+				<div class="text-center">
+			 		<button class="button button-holo-ring button-lr-padded-lg font-lg" ng-click="uploadPic()">Take Picture</button>
+			 	</div>
+			 	</ion-content>
 			</ion-view>
 			
 		  </ion-tab>

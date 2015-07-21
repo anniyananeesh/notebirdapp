@@ -154,6 +154,8 @@ angular.module('starter.controllers', [])
 
   $scope.image = rtUsr;
 
+  console.log(rtUsr);
+
   $scope.uploadPic = function () {
  
     var options =   {
