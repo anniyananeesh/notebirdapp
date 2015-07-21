@@ -66,6 +66,14 @@ angular.module('starter.controllers', [])
      $scope.notifications_count = result.data;
   });
 
+  Data.get('user?ref='+rtUsr.ref).then(function(result){
+      if(!result.error)
+      {
+        $scope.accountTitle = result.name;
+        $scope.accountStatus = (result.pro == 1) ? 'PRO' : 'TRIAL';
+      }
+  });
+
   $scope.goToSendNotification = function()
   { 
     $state.go("app.send");
