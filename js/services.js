@@ -84,21 +84,18 @@ angular.module('starter.services', ['ngCookies'])
 .service('PushNotificationsService', function (GCM_SENDER_ID, PUSHBOTS_APP_ID){
     
     this.register = function(tagName){
-        alert(tagName);
-
+ 
         if(PushbotsPlugin.isiOS()){
           PushbotsPlugin.initializeiOS(PUSHBOTS_APP_ID);
         }
         if(PushbotsPlugin.isAndroid()){
-          PushbotsPlugin.initializeAndroid(PUSHBOTS_APP_ID, GCM_SENDER_ID);
-          alert(tagName);
+
+            //Initialize the push notification server
+            PushbotsPlugin.initializeAndroid(PUSHBOTS_APP_ID, GCM_SENDER_ID);
+ 
             //Set the tag name for the subscriber
             PushbotsPlugin.setAlias(tagName);
-
-
-
         }
-
 
     };
 

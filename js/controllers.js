@@ -31,7 +31,8 @@ angular.module('starter.controllers', [])
           pro: result.pro,
           limit: result.limit,
           tag: result.tagName,
-          code: result.code
+          code: result.code,
+          image: result.image
         });
 
         //Register on push service
@@ -55,6 +56,7 @@ angular.module('starter.controllers', [])
   var rtUsr = Auth.getUser();
   $scope.followers_count = 0;
   $scope.notifications_count = 0;
+  $scope.user = rtUsr;
 
   Data.get('followers_count?ref='+rtUsr.ref).then(function(result){
      $scope.followers_count = result.data;
@@ -133,6 +135,7 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('NoteDetailCtrl',['$scope', '$state', '$ionicLoading', function($scope,$state,$ionicLoading) {
+  
   $scope.notify = {
     name: 'Sample title',
     content: 'Sample message'
@@ -148,6 +151,8 @@ angular.module('starter.controllers', [])
   //Get the user authenticated
   var rtUsr = Auth.getUser(),
       userid = rtUsr.ref;
+
+  $scope.image = rtUsr;
 
   $scope.uploadPic = function () {
  
