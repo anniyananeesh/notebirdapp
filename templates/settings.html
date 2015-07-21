@@ -7,7 +7,7 @@
 		    <ion-view title="Account Settings">
 		    <ion-content>
 		    <div class="profile-image-rounded">
-		    	<img src="http://192.168.56.1:3000/profileImage?img={{user.image}}" ng-if="user.image != null"/>
+		    	<img ng-src="http://192.168.56.1:3000/profileImage?img={{user.image}}" ng-if="user.image != null"/>
 		    </div>
  			<div class="clearfix"></div>
 			<div class="text-center">
