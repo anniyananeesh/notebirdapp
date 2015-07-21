@@ -152,9 +152,7 @@ angular.module('starter.controllers', [])
   var rtUsr = Auth.getUser(),
       userid = rtUsr.ref;
 
-  $scope.image = rtUsr;
-
-  console.log(rtUsr);
+  $scope.user = rtUsr;
 
   $scope.uploadPic = function () {
  
