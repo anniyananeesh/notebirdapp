@@ -6,7 +6,7 @@
 		    <ion-view title="Account Settings">
 		    <ion-content>
 		    <div class="profile-image-rounded">
-		    	<img ng-src="http://localhost/360notes/uploads/subscribers/thumbs/{{picData}}"/>
+		    	<img ng-src="http://192.168.56.1/360notes/uploads/subscribers/thumbs/{{user.image}}" ng-if="user.image != null"/>
 		    </div>
  			<div class="clearfix"></div>
  			<div class="login-form updateAccount">
