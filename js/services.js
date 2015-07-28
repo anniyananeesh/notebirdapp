@@ -23,7 +23,7 @@ angular.module('starter.services', ['ngCookies'])
 
 .factory("Data", ['$http',
     function ($http) {
-        var serviceBase = 'http://192.168.56.1:3000/'; //45.33.67.32 production
+        var serviceBase = 'http://localhost:3000/'; //45.33.67.32 production //device testing 192.168.56.1
         
         var obj = {};
         obj.get = function (q) {
