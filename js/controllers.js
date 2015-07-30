@@ -119,14 +119,24 @@ angular.module('starter.controllers', [])
 }])
 
 //Controller for showing followers list
-.controller('FollowersCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data', function($scope,$state,$ionicLoading, Auth, Data) {
+.controller('FollowersCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data', '$location', function($scope,$state,$ionicLoading, Auth, Data,$location) {
 
   var rtUsr = Auth.getUser();
   $scope.followers = [];
+  $scope.followers_count = 0;
   
   Data.get('followers?ref='+rtUsr.ref).then(function(result){
      $scope.followers = result.data;
   });
+
+  Data.get('followers_count?ref='+rtUsr.ref).then(function(result){
+     $scope.followers_count = result.data;
+  });
+
+  $scope.GoUri = function(path)
+  {
+    $location.path(path);
+  };
 
 }])
 
@@ -135,9 +145,14 @@ angular.module('starter.controllers', [])
  
   var rtUsr = Auth.getUser();
   $scope.notifications = [];
+  $scope.notifications_count = 0;
   
   Data.get('notifications?ref='+rtUsr.ref).then(function(result){
      $scope.notifications = result.data;
+  });
+
+  Data.get('notifications_count?ref='+rtUsr.ref).then(function(result){
+     $scope.notifications_count = result.data;
   });
 
   $scope.resendNotification = function(noteId)
