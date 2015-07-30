@@ -6,14 +6,15 @@
   </label>
   <label class="item item-input">
     <input type="text" placeholder="Message" ng-model="notify.content">
-  </label>
+  </label> 
+
 </div>
  
 </ion-content>
 
 <ion-footer-bar class="bar-positive">
   <div class="buttons">
-    <button class="button button-block button-positive" ng-click="sendNotification()">SEND</button>
+    <button class="button button-block button-positive" ng-click="resendNotification(notify.id)">SEND</button>
   </div>
 </ion-footer-bar>
 </ion-view>

@@ -131,7 +131,7 @@ angular.module('starter.controllers', [])
 }])
 
 //Controller for showing notifications list
-.controller('NotificationsCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data','$cordovaToast', function($scope,$state,$ionicLoading,Auth,Data,$cordovaToast) {
+.controller('NotificationsCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data','$cordovaToast','$location', function($scope,$state,$ionicLoading,Auth,Data,$cordovaToast,$location) {
  
   var rtUsr = Auth.getUser();
   $scope.notifications = [];
@@ -148,8 +148,7 @@ angular.module('starter.controllers', [])
     }, function (error) {
       // error
     });
-
-    alert(noteId);
+ 
 
     //Get notification details by id
     Data.get('notification_by_pk?pk='+noteId).then(function(result){
@@ -178,7 +177,7 @@ angular.module('starter.controllers', [])
               message: ''
             }
 
-            $state.go('app.dashboard');
+            $state.go('app.notifications');
 
           }else{
             $cordovaToast.showLongBottom('Sorry! unknown error '+result.message).then(function(success) {
@@ -203,16 +202,140 @@ angular.module('starter.controllers', [])
 
     });
  
-  }
+  };
+
+  //Delete a notification from database
+  $scope.deleteNotification = function(noteId)
+  {
+
+    $cordovaToast.showShortBottom('Deleting notification ...').then(function(success) {
+      // success
+    }, function (error) {
+      // error
+    });
+
+    Data.delete('notification?pk='+noteId).then(function(result){
+
+      if(!result.error)
+      {
+          $cordovaToast.showLongBottom('Notification has been deleted').then(function(success) {
+                // success
+          }, function (error) {
+                // error
+          });
+      }else{
+          $cordovaToast.showLongBottom('Error: '+result.message).then(function(success) {
+            // success
+          }, function (error) {
+            // error
+          });
+      }
+
+    });
+  };
+
+  //View notification details in new page
+  $scope.viewNotification = function(noteId)
+  {
+    $location.path('/notifications/'+noteId);
+  };
 
 }])
 
-.controller('NoteDetailCtrl',['$scope', '$state', '$ionicLoading', function($scope,$state,$ionicLoading) {
+.controller('NoteDetailCtrl',['$scope', '$stateParams', '$ionicLoading', 'Data','$cordovaToast', function($scope,$stateParams,$ionicLoading, Data,$cordovaToast) {
   
   $scope.notify = {
-    name: 'Sample title',
-    content: 'Sample message'
+    name: '',
+    content: '',
+    id: ''
   }
+
+  var noteId = $stateParams.noteId;
+
+  //Get notification details and show it no view
+  Data.get('notification_by_pk?pk='+noteId).then(function(result){
+
+    if(!result.error)
+    {
+        $scope.notify = {
+          name: result.data.title,
+          content: result.data.message,
+          id: result.data._id
+        }
+
+    }else{
+
+        $cordovaToast.showLongBottom('Error: '+result.message).then(function(success) {
+            // success
+        }, function (error) {
+            // error
+        });
+
+    }
+  });
+
+  $scope.resendNotification = function(noteId)
+  {
+
+      alert(noteId);
+      
+      $cordovaToast.showShortBottom('Resending notification ...').then(function(success) {
+        // success
+      }, function (error) {
+        // error
+      });
+ 
+
+      //Get notification details by id
+      Data.get('notification_by_pk?pk='+noteId).then(function(result){
+
+        if(!result.error)
+        { 
+            //Post the send notification command
+            var paramsQry = {
+              title: result.data.title,
+              message: result.data.message,
+              ref: rtUsr.ref
+            }
+
+            Data.post('send_notification',paramsQry).then(function(result){
+
+              if(!result.error)
+              {
+                $cordovaToast.showLongBottom('Notification has been send').then(function(success) {
+                  // success
+                }, function (error) {
+                  // error
+                });
+
+                $scope.notify = {
+                  title: '',
+                  message: ''
+                }
+
+                $state.go('app.notifications');
+
+              }else{
+                $cordovaToast.showLongBottom('Sorry! unknown error '+result.message).then(function(success) {
+                  // success
+                }, function (error) {
+                  // error
+                });
+              }
+            });
+        }else{
+
+          $cordovaToast.showLongBottom('Sorry! unknown error :(').then(function(success) {
+            // success
+          }, functio
+          n (error) {
+            // error
+          });
+
+        }
+
+      });
+  };
 
 }])
 
