@@ -278,7 +278,7 @@ angular.module('starter.controllers', [])
   {
 
       alert(noteId);
-      
+
       $cordovaToast.showShortBottom('Resending notification ...').then(function(success) {
         // success
       }, function (error) {
@@ -327,8 +327,7 @@ angular.module('starter.controllers', [])
 
           $cordovaToast.showLongBottom('Sorry! unknown error :(').then(function(success) {
             // success
-          }, functio
-          n (error) {
+          }, function (error) {
             // error
           });
 
