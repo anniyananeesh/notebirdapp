@@ -390,3 +390,20 @@ button{
 .loader{
 	display: none;
 }
+
+.action-buttons{
+	display: block;
+	position:relative;
+	width: auto;
+	height: auto;
+	padding: 5px 0;
+}
+
+.action-buttons button{
+	border-radius: 3px;
+	border: #333 solid 1px;
+	color: #333;
+	font-style: 11px;
+	padding: 5px 8px;
+	text-align: center;
+}

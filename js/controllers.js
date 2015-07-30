@@ -131,7 +131,7 @@ angular.module('starter.controllers', [])
 }])
 
 //Controller for showing notifications list
-.controller('NotificationsCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data', function($scope,$state,$ionicLoading,Auth,Data) {
+.controller('NotificationsCtrl',['$scope', '$state', '$ionicLoading', 'Auth', 'Data','$cordovaToast', function($scope,$state,$ionicLoading,Auth,Data,$cordovaToast) {
  
   var rtUsr = Auth.getUser();
   $scope.notifications = [];
@@ -139,6 +139,71 @@ angular.module('starter.controllers', [])
   Data.get('notifications?ref='+rtUsr.ref).then(function(result){
      $scope.notifications = result.data;
   });
+
+  $scope.resendNotification = function(noteId)
+  {
+
+    $cordovaToast.showShortBottom('Resending notification ...').then(function(success) {
+      // success
+    }, function (error) {
+      // error
+    });
+
+    alert(noteId);
+
+    //Get notification details by id
+    Data.get('notification_by_pk?pk='+noteId).then(function(result){
+      if(!result.error)
+      {
+        
+        //Post the send notification command
+        var paramsQry = {
+          title: result.data.title,
+          message: result.data.message,
+          ref: rtUsr.ref
+        }
+
+        Data.post('send_notification',paramsQry).then(function(result){
+
+          if(!result.error)
+          {
+            $cordovaToast.showLongBottom('Notification has been send').then(function(success) {
+              // success
+            }, function (error) {
+              // error
+            });
+
+            $scope.notify = {
+              title: '',
+              message: ''
+            }
+
+            $state.go('app.dashboard');
+
+          }else{
+            $cordovaToast.showLongBottom('Sorry! unknown error '+result.message).then(function(success) {
+              // success
+            }, function (error) {
+              // error
+            });
+          }
+   
+        });
+
+      }else{
+
+        //Show toast message
+
+        $cordovaToast.showLongBottom('Sorry! unknown error :(').then(function(success) {
+          // success
+        }, function (error) {
+          // error
+        });
+      }
+
+    });
+ 
+  }
 
 }])
 

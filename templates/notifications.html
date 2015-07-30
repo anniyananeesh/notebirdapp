@@ -21,6 +21,12 @@
       	<div class="not-letter">{{note.letter}}</div>
         <h2>{{note.title}}</h2>
         <p>{{note.message}}</p>
+
+        <div class="action-buttons">
+          <button type="button" ng-click="resendNotification(note._id)"><i class=""></i> Resend</button>
+          <button type="button" ng-click="deleteNotification(note._id"><i class=""></i> Delete</button>
+        </div>
+
       </ion-item>
     </ion-list>
   </ion-content>
