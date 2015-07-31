@@ -9,7 +9,7 @@
 	 	</div>
 
 	 	<div class="pull-right">
-	 		<button class="button button-holo-ring">Send Notification</button>
+	 		<button class="button button-holo-ring" on-tap="GoUri('/notifications')">Send Notification</button>
 	 	</div>
 
 	 	<div class="clearfix"></div>
@@ -18,7 +18,7 @@
 
     <ion-list>
       <ion-item class="item item-text-wrapper notifications-item" ng-repeat="note in notifications">
-        {{note}}
+
       	<div class="not-letter">{{note.letter}}</div>
         <h2>{{note.title}}</h2>
         <p>{{note.message}}</p>

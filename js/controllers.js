@@ -2,8 +2,19 @@ var serverURL = 'http://192.168.56.1:3000';
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl',['$scope', '$state', 'Auth', 'Data', '$ionicLoading', 'PushNotificationsService', function($scope, $state, Auth, Data, $ionicLoading, PushNotificationsService) {
-  // Form data for the login modal
+.controller('AppCtrl',['$scope', '$state', 'Auth', 'Data', '$ionicLoading', 'PushNotificationsService','$cordovaSpinnerDialog', function($scope, $state, Auth, Data, $ionicLoading, PushNotificationsService,$cordovaSpinnerDialog) {
+  
+  $cordovaSpinnerDialog.show("Checking login status ....","", true);
+  //Check if alraedy logged in
+  if(Auth.isLoggedIn())
+  {
+     //$cordovaSpinnerDialog.hide();
+     //$state.go("app.dashboard");
+  }else{
+    //$cordovaSpinnerDialog.hide();
+  }
+
+  //Form data for the login modal
   $scope.loginData = {};  
 
   $scope.logout = function() {
@@ -255,6 +266,11 @@ angular.module('starter.controllers', [])
     $location.path('/notifications/'+noteId);
   };
 
+  $scope.GoUri = function(path)
+  {
+    $location.path(path);
+  };
+
 }])
 
 .controller('NoteDetailCtrl',['$scope', '$stateParams', '$ionicLoading', 'Data','$cordovaToast', function($scope,$stateParams,$ionicLoading, Data,$cordovaToast) {
@@ -291,9 +307,7 @@ angular.module('starter.controllers', [])
 
   $scope.resendNotification = function(noteId)
   {
-
-      alert(noteId);
-
+ 
       $cordovaToast.showShortBottom('Resending notification ...').then(function(success) {
         // success
       }, function (error) {
